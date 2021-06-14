@@ -38,35 +38,35 @@ def get_options(item_name):
     return option_dumps
 
 
-def selenium_work_load(driver, url_path, x_path):
+def selenium_work_load(fn_driver, fn_url_path, fn_x_path):
     """
     selenium_work_load is used to extract the data from GrubHub website using Selenium driver.
     URL: https://www.grubhub.com/restaurant/
     the-mad-greek-cafe-of-charlotte-5011-south-blvd-charlotte/2159864
 
-    :param driver: Chrome Driver Information and Headless mode details; Type - Object
-    :param url_path: Grub Hub ; Type - String
+    :param fn_driver: Chrome Driver Information and Headless mode details; Type - Object
+    :param fn_url_path: Grub Hub ; Type - String
     :param xpath: Xpath of the Main Menu; Type - String
     :return: Array of arrays; Type - [[list1][list2]] viz. nested lists
     """
-    driver.get(url_path)
-    driver.maximize_window()  # For maximizing window
-    driver.implicitly_wait(20)  # gives an implicit wait for 20 seconds
-    driver.execute_script("window.scrollBy(0,document.body.scrollHeight)")
+    fn_driver.get(fn_url_path)
+    fn_driver.maximize_window()  # For maximizing window
+    fn_driver.implicitly_wait(20)  # gives an implicit wait for 20 seconds
+    fn_driver.execute_script("window.scrollBy(0,document.body.scrollHeight)")
 
-    driver.find_element_by_xpath("//*[@id='Site']/ghs-site-container/span/span/span[3]"
+    fn_driver.find_element_by_xpath("//*[@id='Site']/ghs-site-container/span/span/span[3]"
                                  "/ghs-app-content/div[2]/ghs-main-nav/span[2]/span/div"
                                  "/div/button").click()
-    driver.find_element_by_xpath("//*[@id='email']").send_keys("sri89jam@gmail.com")
-    driver.find_element_by_xpath("//*[@id='password']").send_keys("GrubHub@23")
-    driver.find_element_by_xpath("//*[@id='Site']/ghs-modal-backdrop/ghs-modal-container"
+    fn_driver.find_element_by_xpath("//*[@id='email']").send_keys("sri89jam@gmail.com")
+    fn_driver.find_element_by_xpath("//*[@id='password']").send_keys("GrubHub@23")
+    fn_driver.find_element_by_xpath("//*[@id='Site']/ghs-modal-backdrop/ghs-modal-container"
                                  "/div/dialog/ghs-modal-content/span/div/div/span/ghs-lazy"
                                  "/span/span/div/div/span/span/span/form/span/div/div[3]"
                                  "/div/button").click()
     # for i in range(0,10,1):
     #     time.sleep(10)
 
-    web_dumps = driver.find_element_by_xpath(x_path).text.split('\n')
+    web_dumps = fn_driver.find_element_by_xpath(fn_x_path).text.split('\n')
 
     menu_types = ['Top Menu Items', 'Starters', 'The Pita Sandwiches',
                   'The Mad Greek Signature Salads', 'The Dinners',
@@ -82,21 +82,21 @@ def selenium_work_load(driver, url_path, x_path):
             i = i + 1
             menu_item = line
             continue
-        if re.search("^\$", line):
-            if not re.search("^\$", web_dumps[i - 2]) and \
+        if re.search(r"^\$", line):
+            if not re.search(r"^\$", web_dumps[i - 2]) and \
                     not re.search("Top Menu Items", web_dumps[i - 2]):
-                item_rate = line.replace("\$","").replace("\+","")
+                item_rate = line.replace(r"\$", "").replace(r"\+", "")
                 item_name = web_dumps[i - 2]
                 item_info = web_dumps[i - 1]
             else:
-                item_rate = line.replace("\$","").replace("\+","")
+                item_rate = line.replace(r"\$", "").replace(r"\+", "")
                 item_name = web_dumps[i - 1]
                 item_info = ""
 
             # for option in get_options(item_name):'
             for option in get_options(item_name):
                 # print(option)
-                if re.search ("\\+", option):
+                if re.search(r"\+", option):
                     option_name = option.split('+')[0]
                     option_rate = option.split('+')[1]
                 else:
@@ -109,7 +109,7 @@ def selenium_work_load(driver, url_path, x_path):
     return master
 
 
-def gsheets_endpoint(aoa, creds, sample_spreadsheet_id):
+def gsheets_endpoint(aoa, creds, spreadsheet_id):
     """
     Prerequistie: Complete the Google API service configuration
     on Dev Console before you start working on Python code
@@ -124,9 +124,7 @@ def gsheets_endpoint(aoa, creds, sample_spreadsheet_id):
     service = build('sheets', 'v4', credentials=creds)
     sheet = service.spreadsheets()
 
-    headers = [[]]
-
-    header_request = sheet.values().update(spreadsheetId=sample_spreadsheet_id,
+    sheet.values().update(spreadsheetId=spreadsheet_id,
                                            range="Sheet3!A2",
                                            valueInputOption="USER_ENTERED",
                                            body={"values": [["Category","Item Name",
@@ -134,7 +132,7 @@ def gsheets_endpoint(aoa, creds, sample_spreadsheet_id):
                                                              "Options", "Options Rate"]]})\
                                    .execute()
 
-    request = sheet.values().update(spreadsheetId=sample_spreadsheet_id,
+    sheet.values().update(spreadsheetId=spreadsheet_id,
                                     range="Sheet3!A2",
                                     valueInputOption="USER_ENTERED",
                                     body={"values": aoa})\
@@ -142,40 +140,33 @@ def gsheets_endpoint(aoa, creds, sample_spreadsheet_id):
 
 
 if __name__ == '__main__':
-    """
-    Main Function - Calling two sub functions viz, selenium_work_load & gsheets_endpoints
-    Function 1: selenium_work_load
-    Function 2: gsheets_endpoint
-    """
-
     frameinfo = getframeinfo(currentframe())
     options = Options()
     # options.headless = True
     options.add_argument("--disable-notifications")
 
-    driver = webdriver.Chrome(executable_path="C:\Drivers\chromedriver_win32\chromedriver.exe",
+    driver = webdriver.Chrome(executable_path="C:\\Drivers\\chromedriver_win32\\chromedriver.exe",
                               options=options)
 
-    url_path = "https://www.grubhub.com/restaurant/" \
+    URL_PATH = "https://www.grubhub.com/restaurant/" \
                "the-mad-greek-cafe-of-charlotte-5011-south-blvd-charlotte/" \
                "2159864"
 
-    x_path= "/html/body/ghs-site-container/span/span/span[3]" \
+    X_PATH = "/html/body/ghs-site-container/span/span/span[3]" \
             "/ghs-app-content/div[3]/div/ghs-router-outlet/" \
             "ghs-restaurant-provider/ghs-restaurant-data/" \
             "div/div[1]/div/main/div[4]/span/span/div/div/" \
             "div/div/div/span/ghs-impression-tracker/span/div"
-    master_aoa = selenium_work_load(driver, url_path, x_path)
-    print (master_aoa)
-    print (master_aoa[1:])
+    master_aoa = selenium_work_load(driver, URL_PATH, X_PATH)
+    master_aoa = master_aoa[1:]
 
-    aoa = get_options(driver, url_path, x_path, master_aoa[1:])
+    gsaoa = get_options(driver, URL_PATH, X_PATH, master_aoa)
 
     SERVICE_ACCOUNT_FILE = 'keys.json'
     SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
-    sample_spreadsheet_id = "1f6s_q4LKbK12Ar3KMzLj4jiu-iQ6A4_H50f3RIdxIGs"
+    SAMPLE_SPREADSHEET_ID = "1f6s_q4LKbK12Ar3KMzLj4jiu-iQ6A4_H50f3RIdxIGs"
 
     credentials = service_account.Credentials.from_service_account_file(
         SERVICE_ACCOUNT_FILE, scopes=SCOPES)
 
-    gsheets_endpoint(master_aoa, credentials, sample_spreadsheet_id)
+    gsheets_endpoint(gsaoa, credentials, SAMPLE_SPREADSHEET_ID)
