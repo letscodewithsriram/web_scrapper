@@ -9,16 +9,18 @@ from inspect import currentframe, getframeinfo
 
 
 def get_options(item_name):
+    """
+    get_options function is used get the options details from each possible menu items
+    :param item_name: name of the item for which food options need to be extracted
+    :return: OPTION_DUMPS - Array with food item options and rates
+    """
     # item_name = "Pita with Tzatziki"
-    print (item_name)
-    # driver.find_element_by_xpath("//*[@id='chiri-modal']/div/div/div[2]/div[3]/a").click()
     driver.find_element_by_link_text(item_name).click()
-    print(driver.current_url)
     time.sleep(10)
     obj = driver.find_elements(By.TAG_NAME, "label")
     OPTION_DUMPS = [x.text for x in obj if
-                    x.text and not re.search("Special instructions|Search restaurants or dishes", x.text)]
-    # print (OPTION_DUMPS)
+                    x.text and not re.search("Special instructions|Search restaurants or dishes",
+                                             x.text)]
     driver.find_element_by_xpath("/html/body/ghs-modal-backdrop/ghs-modal-container/div/dialog/ghs-modal-content/span/span/span/ghs-lazy/ghs-menu-item-add/form/div/div/header/nav/button").click()
     driver.refresh()
     return OPTION_DUMPS
@@ -26,6 +28,9 @@ def get_options(item_name):
 
 def selenium_work_load(driver, url, xpath):
     """
+    selenium_work_load is used to extract the data from GrubHub website using Selenium driver.
+    URL: https://www.grubhub.com/restaurant/the-mad-greek-cafe-of-charlotte-5011-south-blvd-charlotte/2159864
+
     :param driver: Chrome Driver Information and Headless mode details; Type - Object
     :param url: Grub Hub ; Type - String
     :param xpath: Xpath of the Main Menu; Type - String
@@ -56,9 +61,9 @@ def selenium_work_load(driver, url, xpath):
             i = i + 1
             menu_item = line
             continue
-        if re.search("^\$", line):
-            if not re.search("^\$", web_dumps[i - 2]) and not re.search("Top Menu Items", web_dumps[i - 2]):
-                item_rate = line.replace("$","").replace("+","")
+        if re.search("^\\$", line):
+            if not re.search(r"^\\$", web_dumps[i - 2]) and not re.search("Top Menu Items", web_dumps[i - 2]):
+                item_rate = line.replace("\\$","").replace("\\+","")
                 item_name = web_dumps[i - 2]
                 item_info = web_dumps[i - 1]
             else:
@@ -69,7 +74,7 @@ def selenium_work_load(driver, url, xpath):
             # for option in get_options(item_name):'
             for option in get_options(item_name):
                 # print(option)
-                if re.search ("\+", option):
+                if re.search ("\\+", option):
                     option_name = option.split('+')[0]
                     option_rate = option.split('+')[1]
                 else:
@@ -77,15 +82,16 @@ def selenium_work_load(driver, url, xpath):
                     option_rate = ""
                 master.append([menu_item, item_name, item_info, item_rate, option_name, option_rate])
                 print (master)
-
-    # driver.find_element_by_link_text('Dismiss').click()
     return master
 
 
 def gsheets_endpoint(aoa, creds, SAMPLE_SPREADSHEET_ID):
     """
-    :param aoa:
-    :return:
+    Prerequistie: Complete the Google API service configuration on Dev Console before you start working on Python code
+    gsheets_endpoints function used to push Array of Arrays to Google Sheets via pre-configured API endpoints
+    Authentication using OAuth2
+    :param aoa: Array of Arrays for Google Sheet input
+    :return: None
     """
     service = build('sheets', 'v4', credentials=creds)
     sheet = service.spreadsheets()
@@ -108,7 +114,7 @@ def gsheets_endpoint(aoa, creds, SAMPLE_SPREADSHEET_ID):
 if __name__ == '__main__':
     """
     Main Function - Calling two sub functions viz, selenium_work_load & gsheets_endpoints
-    Function 1: selenium_work_load 
+    Function 1: selenium_work_load
     Function 2: gsheets_endpoint
     """
 
@@ -133,7 +139,6 @@ if __name__ == '__main__':
     SAMPLE_SPREADSHEET_ID = "1f6s_q4LKbK12Ar3KMzLj4jiu-iQ6A4_H50f3RIdxIGs"
 
     credentials = service_account.Credentials.from_service_account_file(SERVICE_ACCOUNT_FILE, scopes=SCOPES)
-    master_aoa = [[], ['Top Menu Items', 'Gyro Pita', '', '12.18', 'Substitute Rice', ''], ['Top Menu Items', 'Gyro Pita', '', '12.18', 'Substitute Hummus', ''], ['Top Menu Items', 'Gyro Pita', '', '12.18', 'Substitute Side Tossed Salad ', ' $3.25'], ['Top Menu Items', 'Gyro Pita', '', '12.18', 'Substitute Tomato and Cucumber Salad ', ' $2.60'], ['Top Menu Items', 'Gyro Pita', '', '12.18', 'Substitute Greek Feta Fries ', ' $1.95'], ['Top Menu Items', 'Gyro Pita', '', '12.18', 'Substitute Side Greek Salad ', ' $4.55'], ['Top Menu Items', 'Gyro Pita', '', '12.18', 'Substitute Grape Leaves ', ' $3.90'], ['Top Menu Items', 'Grilled Chicken Pita', '', '12.18', 'Substitute Rice', ''], ['Top Menu Items', 'Grilled Chicken Pita', '', '12.18', 'Substitute Hummus', ''], ['Top Menu Items', 'Grilled Chicken Pita', '', '12.18', 'Substitute Side Tossed Salad ', ' $3.25'], ['Top Menu Items', 'Grilled Chicken Pita', '', '12.18', 'Substitute Tomato and Cucumber Salad ', ' $2.60'], ['Top Menu Items', 'Grilled Chicken Pita', '', '12.18', 'Substitute Greek Feta Fries ', ' $1.95'], ['Top Menu Items', 'Grilled Chicken Pita', '', '12.18', 'Substitute Side Greek Salad ', ' $4.55'], ['Top Menu Items', 'Grilled Chicken Pita', '', '12.18', 'Substitute Grape Leaves ', ' $3.90']]
 
     gsheets_endpoint(master_aoa, credentials, SAMPLE_SPREADSHEET_ID)
 
