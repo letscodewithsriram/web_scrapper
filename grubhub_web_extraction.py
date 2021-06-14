@@ -8,21 +8,6 @@ from selenium.webdriver.common.by import By
 from inspect import currentframe, getframeinfo
 
 
-# def get_options(driver, url, xpath, master):
-#     print (master)
-#     for line in master:
-#         ITEM_NAME = line[1]
-#         print (ITEM_NAME)
-#         driver.find_element_by_link_text(ITEM_NAME).click()
-#         time.sleep(10)
-#         obj = driver.find_elements(By.TAG_NAME, "label")
-#         OPTION_DUMPS = [x.text for x in obj if x.text and not re.search("Special instructions|Search restaurants or dishes", x.text)]
-#         print(OPTION_DUMPS)
-#         driver.quit()
-#         time.sleep(30)
-#         exit(0)
-#     return None
-
 def get_options(item_name):
     # item_name = "Pita with Tzatziki"
     print (item_name)
@@ -35,6 +20,7 @@ def get_options(item_name):
                     x.text and not re.search("Special instructions|Search restaurants or dishes", x.text)]
     # print (OPTION_DUMPS)
     driver.find_element_by_xpath("/html/body/ghs-modal-backdrop/ghs-modal-container/div/dialog/ghs-modal-content/span/span/span/ghs-lazy/ghs-menu-item-add/form/div/div/header/nav/button").click()
+    driver.refresh()
     return OPTION_DUMPS
 
 
@@ -125,9 +111,10 @@ if __name__ == '__main__':
     Function 1: selenium_work_load 
     Function 2: gsheets_endpoint
     """
+
     frameinfo = getframeinfo(currentframe())
     options = Options()
-    # options.headless = True
+    options.headless = True
     options.add_argument("--disable-notifications")
 
     driver = webdriver.Chrome(executable_path="C:\Drivers\chromedriver_win32\chromedriver.exe", options=options)
@@ -146,5 +133,7 @@ if __name__ == '__main__':
     SAMPLE_SPREADSHEET_ID = "1f6s_q4LKbK12Ar3KMzLj4jiu-iQ6A4_H50f3RIdxIGs"
 
     credentials = service_account.Credentials.from_service_account_file(SERVICE_ACCOUNT_FILE, scopes=SCOPES)
+    master_aoa = [[], ['Top Menu Items', 'Gyro Pita', '', '12.18', 'Substitute Rice', ''], ['Top Menu Items', 'Gyro Pita', '', '12.18', 'Substitute Hummus', ''], ['Top Menu Items', 'Gyro Pita', '', '12.18', 'Substitute Side Tossed Salad ', ' $3.25'], ['Top Menu Items', 'Gyro Pita', '', '12.18', 'Substitute Tomato and Cucumber Salad ', ' $2.60'], ['Top Menu Items', 'Gyro Pita', '', '12.18', 'Substitute Greek Feta Fries ', ' $1.95'], ['Top Menu Items', 'Gyro Pita', '', '12.18', 'Substitute Side Greek Salad ', ' $4.55'], ['Top Menu Items', 'Gyro Pita', '', '12.18', 'Substitute Grape Leaves ', ' $3.90'], ['Top Menu Items', 'Grilled Chicken Pita', '', '12.18', 'Substitute Rice', ''], ['Top Menu Items', 'Grilled Chicken Pita', '', '12.18', 'Substitute Hummus', ''], ['Top Menu Items', 'Grilled Chicken Pita', '', '12.18', 'Substitute Side Tossed Salad ', ' $3.25'], ['Top Menu Items', 'Grilled Chicken Pita', '', '12.18', 'Substitute Tomato and Cucumber Salad ', ' $2.60'], ['Top Menu Items', 'Grilled Chicken Pita', '', '12.18', 'Substitute Greek Feta Fries ', ' $1.95'], ['Top Menu Items', 'Grilled Chicken Pita', '', '12.18', 'Substitute Side Greek Salad ', ' $4.55'], ['Top Menu Items', 'Grilled Chicken Pita', '', '12.18', 'Substitute Grape Leaves ', ' $3.90']]
+
     gsheets_endpoint(master_aoa, credentials, SAMPLE_SPREADSHEET_ID)
 
