@@ -1,0 +1,138 @@
+
+URL -> Check the Type (Checkbox) --> Get the ID --> Get the name
+
+<div class="s-row menuItem-choice-options u-gutterless-3">
+   <div class="s-col-sm-4 u-gutter-3">
+      <div class="menuItemModal-choice-option">
+         <div class="menuItemModal-choice-option s-checkbox-group" data-testid="item-options-checkboxes">
+            <input aria-label="Substitute Rice" type="checkbox" class="s-checkbox-input" id="choice-1773302171-1771748538-1771748535">
+            <label class="s-checkbox-label u-flex-inline" for="choice-1773302171-1771748538-1771748535">
+               <div class="s-checkbox-filler">
+                  <span class="r2p">
+                     <cb-icon class="" style="">
+                        <svg class="cb-icon cb-icon-svg cb-icon--12" aria-hidden="true">
+                           <use xlink:href="#check"></use>
+                        </svg>
+                     </cb-icon>
+                  </span>
+               </div>
+               <span class="menuItemModal-choice-option-description" data-testid="item-options-checkboxes-description">Substitute Rice</span>
+            </label>
+         </div>
+      </div>
+   </div>
+   <div class="s-col-sm-4 u-gutter-3">
+      <div class="menuItemModal-choice-option">
+         <div class="menuItemModal-choice-option s-checkbox-group" data-testid="item-options-checkboxes">
+            <input aria-label="Substitute Hummus" type="checkbox" class="s-checkbox-input" id="choice-1773302171-1771748538-4596506768">
+            <label class="s-checkbox-label u-flex-inline" for="choice-1773302171-1771748538-4596506768">
+               <div class="s-checkbox-filler">
+                  <span class="r2p">
+                     <cb-icon class="" style="">
+                        <svg class="cb-icon cb-icon-svg cb-icon--12" aria-hidden="true">
+                           <use xlink:href="#check"></use>
+                        </svg>
+                     </cb-icon>
+                  </span>
+               </div>
+               <span class="menuItemModal-choice-option-description" data-testid="item-options-checkboxes-description">Substitute Hummus</span>
+            </label>
+         </div>
+      </div>
+   </div>
+   <div class="s-col-sm-4 u-gutter-3">
+      <div class="menuItemModal-choice-option">
+         <div class="menuItemModal-choice-option s-checkbox-group" data-testid="item-options-checkboxes">
+            <input aria-label="Substitute Side Tossed Salad" type="checkbox" class="s-checkbox-input" id="choice-1773302171-1771748538-1771748536">
+            <label class="s-checkbox-label u-flex-inline" for="choice-1773302171-1771748538-1771748536">
+               <div class="s-checkbox-filler">
+                  <span class="r2p">
+                     <cb-icon class="" style="">
+                        <svg class="cb-icon cb-icon-svg cb-icon--12" aria-hidden="true">
+                           <use xlink:href="#check"></use>
+                        </svg>
+                     </cb-icon>
+                  </span>
+               </div>
+               <span class="menuItemModal-choice-option-description" data-testid="item-options-checkboxes-description">Substitute Side Tossed Salad + $3.25</span>
+            </label>
+         </div>
+      </div>
+   </div>
+   <div class="s-col-sm-4 u-gutter-3">
+      <div class="menuItemModal-choice-option">
+         <div class="menuItemModal-choice-option s-checkbox-group" data-testid="item-options-checkboxes">
+            <input aria-label="Substitute Tomato and Cucumber Salad" type="checkbox" class="s-checkbox-input" id="choice-1773302171-1771748538-1771748537">
+            <label class="s-checkbox-label u-flex-inline" for="choice-1773302171-1771748538-1771748537">
+               <div class="s-checkbox-filler">
+                  <span class="r2p">
+                     <cb-icon class="" style="">
+                        <svg class="cb-icon cb-icon-svg cb-icon--12" aria-hidden="true">
+                           <use xlink:href="#check"></use>
+                        </svg>
+                     </cb-icon>
+                  </span>
+               </div>
+               <span class="menuItemModal-choice-option-description" data-testid="item-options-checkboxes-description">Substitute Tomato and Cucumber Salad + $2.60</span>
+            </label>
+         </div>
+      </div>
+   </div>
+   <div class="s-col-sm-4 u-gutter-3">
+      <div class="menuItemModal-choice-option">
+         <div class="menuItemModal-choice-option s-checkbox-group" data-testid="item-options-checkboxes">
+            <input aria-label="Substitute Greek Feta Fries" type="checkbox" class="s-checkbox-input" id="choice-1773302171-1771748538-1773470144">
+            <label class="s-checkbox-label u-flex-inline" for="choice-1773302171-1771748538-1773470144">
+               <div class="s-checkbox-filler">
+                  <span class="r2p">
+                     <cb-icon class="" style="">
+                        <svg class="cb-icon cb-icon-svg cb-icon--12" aria-hidden="true">
+                           <use xlink:href="#check"></use>
+                        </svg>
+                     </cb-icon>
+                  </span>
+               </div>
+               <span class="menuItemModal-choice-option-description" data-testid="item-options-checkboxes-description">Substitute Greek Feta Fries + $1.95</span>
+            </label>
+         </div>
+      </div>
+   </div>
+   <div class="s-col-sm-4 u-gutter-3">
+      <div class="menuItemModal-choice-option">
+         <div class="menuItemModal-choice-option s-checkbox-group" data-testid="item-options-checkboxes">
+            <input aria-label="Substitute Side Greek Salad" type="checkbox" class="s-checkbox-input" id="choice-1773302171-1771748538-1773470145">
+            <label class="s-checkbox-label u-flex-inline" for="choice-1773302171-1771748538-1773470145">
+               <div class="s-checkbox-filler">
+                  <span class="r2p">
+                     <cb-icon class="" style="">
+                        <svg class="cb-icon cb-icon-svg cb-icon--12" aria-hidden="true">
+                           <use xlink:href="#check"></use>
+                        </svg>
+                     </cb-icon>
+                  </span>
+               </div>
+               <span class="menuItemModal-choice-option-description" data-testid="item-options-checkboxes-description">Substitute Side Greek Salad + $4.55</span>
+            </label>
+         </div>
+      </div>
+   </div>
+   <div class="s-col-sm-4 u-gutter-3">
+      <div class="menuItemModal-choice-option">
+         <div class="menuItemModal-choice-option s-checkbox-group" data-testid="item-options-checkboxes">
+            <input aria-label="Substitute Grape Leaves" type="checkbox" class="s-checkbox-input" id="choice-1773302171-1771748538-1773470146">
+            <label class="s-checkbox-label u-flex-inline" for="choice-1773302171-1771748538-1773470146">
+               <div class="s-checkbox-filler">
+                  <span class="r2p">
+                     <cb-icon class="" style="">
+                        <svg class="cb-icon cb-icon-svg cb-icon--12" aria-hidden="true">
+                           <use xlink:href="#check"></use>
+                        </svg>
+                     </cb-icon>
+                  </span>
+               </div>
+               <span class="menuItemModal-choice-option-description" data-testid="item-options-checkboxes-description">Substitute Grape Leaves + $3.90</span>
+            </label>
+         </div>
+      </div>
+   </div>
+</div>
