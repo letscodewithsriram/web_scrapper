@@ -1,6 +1,6 @@
 """
 Author: Sriram Ramanujam
-Date: 14th June 2020
+Date: 14th June 2021
 Script Name: grubhub_web_extraction.py
 Script Description: Script will extract the food items and its rates from Grubhub.com.
 Finally parsed data-points will be pushed into Google Sheets through pre-configured API's.
