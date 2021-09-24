@@ -157,6 +157,11 @@ if __name__ == '__main__':
     s = "print(\"Hello, World!\")"
     exec s
     
+    def delete_product(product_id, user):
+        assert user.is_admin(), 'Must have admin privileges to delete'
+        assert store.product_exists(product_id), 'Unknown product id'
+        store.find_product(product_id).delete()
+    
     f = open("/tmp/hello.yaml", "r")
     f.close()
     X_PATH = "/html/body/ghs-site-container/span/span/span[3]" \
