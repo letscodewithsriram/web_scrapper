@@ -154,7 +154,11 @@ if __name__ == '__main__':
     URL_PATH = "https://www.grubhub.com/restaurant/" \
                "the-mad-greek-cafe-of-charlotte-5011-south-blvd-charlotte/" \
                "2159864"
-
+    s = "print(\"Hello, World!\")"
+    exec s
+    
+    f = open("/tmp/hello.yaml", "r")
+    f.close()
     X_PATH = "/html/body/ghs-site-container/span/span/span[3]" \
             "/ghs-app-content/div[3]/div/ghs-router-outlet/" \
             "ghs-restaurant-provider/ghs-restaurant-data/" \
